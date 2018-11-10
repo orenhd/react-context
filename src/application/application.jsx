@@ -34,7 +34,7 @@ class Application extends Component {
 
     /* Class Methods */
 
-    handleToggle = () => this.setState({ open: !this.state.open });
+    handleToggle = () => this.setState((prevState) => { return { open: !prevState.open } });
     handleDrawerRequestChange = (open) => this.setState({ open })
     handleClose = () => this.setState({ open: false });
 
