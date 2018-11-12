@@ -34,16 +34,16 @@ export default class TopTwentyAlbumsProvider extends Component {
         this.setState({ currentGenreId });
     }
 
-    loadGenres = () => {
-        if (!this.state.currentGenreId)
-            ITunesService.getGenres().then((genres) => {
-                const genresMap = sharedUtils.getMapFromArrayByPropertyKey(genres, 'id');
-                this.setGenres(genresMap);
-                if (genres && genres[0] && !this.state.currentGenreId) {
-                    //loading genre ids is always followed by loading the selected genre albums list
-                    this.loadAlbumEntriesByGenreId(genres[0].id);
-                }
-            })
+    loadGenres = (requestedGenreId) => {
+        ITunesService.getGenres().then((genres) => {
+            const genresMap = sharedUtils.getMapFromArrayByPropertyKey(genres, 'id');
+            this.setGenres(genresMap);
+            const genreId = (requestedGenreId && genresMap[requestedGenreId] && genresMap[requestedGenreId].id) 
+                || (genres[0] && genres[0].id);
+
+            // loading genre ids is always followed by loading the selected genre albums list
+            this.loadAlbumEntriesByGenreId(genreId);
+        });
     }
 
     loadAlbumEntriesByGenreId = (genreId) => {
