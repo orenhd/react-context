@@ -75,8 +75,8 @@ class Application extends Component {
                 </NavLink>
             </Drawer>
             <Route path="/clicking-example" component={ClickingExample} />
-            <Route path="/top-twenty" component={TopTwentyAlbums} />
-            <Route path="/top-twenty/:genreId" component={TopTwentyAlbums}/>
+            <Route exact path="/top-twenty" component={TopTwentyAlbums} />
+            <Route exact path="/top-twenty/:genreId" component={TopTwentyAlbums}/>
             <Route exact path="/" render={() => (
                 <Redirect to="/top-twenty" />
             )} />
